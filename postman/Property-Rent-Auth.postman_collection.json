@@ -1,0 +1,94 @@
+{
+  "info": {
+    "name": "Property Rent - Auth API",
+    "description": "Signup, Verify OTP, Login, Forgot/Reset Password, Profile",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "1. Signup",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "username", "value": "testuser", "type": "text" },
+            { "key": "email", "value": "test@example.com", "type": "text" },
+            { "key": "contact", "value": "+923001234567", "type": "text" },
+            { "key": "password", "value": "Test@123", "type": "text" },
+            { "key": "confirm_password", "value": "Test@123", "type": "text" },
+            { "key": "profile_image", "type": "file", "src": "" }
+          ]
+        },
+        "url": "{{baseUrl}}/api/auth/signup",
+        "description": "All required: username, email, contact, password, confirm_password, profile_image (file). Sends OTP to email."
+      }
+    },
+    {
+      "name": "2. Verify OTP",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"otp\": \"123456\"\n}"
+        },
+        "url": "{{baseUrl}}/api/auth/verify-otp",
+        "description": "Same email as signup + OTP from email. Returns token."
+      }
+    },
+    {
+      "name": "3. Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"Test@123\"\n}"
+        },
+        "url": "{{baseUrl}}/api/auth/login",
+        "description": "Returns token. Save as collection variable 'token'."
+      }
+    },
+    {
+      "name": "4. Forgot Password",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\"\n}"
+        },
+        "url": "{{baseUrl}}/api/auth/forgot-password",
+        "description": "Sends 6-digit reset code to email. Valid 15 minutes."
+      }
+    },
+    {
+      "name": "5. Reset Password",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"code\": \"123456\",\n  \"new_password\": \"NewPass@123\",\n  \"confirm_password\": \"NewPass@123\"\n}"
+        },
+        "url": "{{baseUrl}}/api/auth/reset-password",
+        "description": "Use code from email. Then login with new password."
+      }
+    },
+    {
+      "name": "6. Get Profile",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/api/auth/profile",
+        "description": "Returns username, email, contact, profile_image URL. Needs token."
+      }
+    }
+  ]
+}
