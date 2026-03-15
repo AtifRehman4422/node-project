@@ -1,0 +1,26 @@
+-- Add hotel_details table for Hotel property type (run if DB was created before Hotel was added).
+CREATE TABLE IF NOT EXISTS hotel_details (
+  id SERIAL PRIMARY KEY,
+  listing_id INTEGER NOT NULL UNIQUE REFERENCES listings(id) ON DELETE CASCADE,
+  rooms INT DEFAULT 1,
+  ac_type VARCHAR(30),
+  clean_beds BOOLEAN DEFAULT false,
+  attached_bathroom BOOLEAN DEFAULT false,
+  family_rooms BOOLEAN DEFAULT false,
+  wifi BOOLEAN DEFAULT false,
+  parking BOOLEAN DEFAULT false,
+  breakfast BOOLEAN DEFAULT false,
+  lunch_dinner BOOLEAN DEFAULT false,
+  room_service BOOLEAN DEFAULT false,
+  cctv BOOLEAN DEFAULT false,
+  security_24 BOOLEAN DEFAULT false,
+  safe_env BOOLEAN DEFAULT false,
+  near_market BOOLEAN DEFAULT false,
+  near_bus_stand BOOLEAN DEFAULT false,
+  near_tourist BOOLEAN DEFAULT false,
+  laundry BOOLEAN DEFAULT false,
+  swimming_pool BOOLEAN DEFAULT false,
+  gym BOOLEAN DEFAULT false,
+  conference_hall BOOLEAN DEFAULT false,
+  available_from_date DATE
+);

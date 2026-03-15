@@ -33,7 +33,7 @@ async function run() {
     for (const stmt of statements) {
       await client.query(stmt);
     }
-    console.log('Listings tables created: listings, listing_images, hostel_details, house_details, flat_details, shop_details, office_details, marquee_details, guest_house_details, farm_house_details, listing_extras');
+    console.log('Listings tables created: listings, listing_images, hostel_details, house_details, flat_details, shop_details, office_details, hotel_details, marquee_details, guest_house_details, farm_house_details, listing_extras');
   } catch (err) {
     console.error('Error:', err.message);
     process.exit(1);

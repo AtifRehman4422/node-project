@@ -180,6 +180,35 @@ const create = async (req, res) => {
           typePayload.available_from_date || null,
         ]
       );
+    } else if (propertyType === 'Hotel') {
+      await client.query(
+        `INSERT INTO hotel_details (listing_id, rooms, ac_type, clean_beds, attached_bathroom, family_rooms, wifi, parking, breakfast, lunch_dinner, room_service, cctv, security_24, safe_env, near_market, near_bus_stand, near_tourist, laundry, swimming_pool, gym, conference_hall, available_from_date)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)`,
+        [
+          listingId,
+          typePayload.rooms ?? 1,
+          typePayload.ac_type || null,
+          typePayload.clean_beds || false,
+          typePayload.attached_bathroom || false,
+          typePayload.family_rooms || false,
+          typePayload.wifi || false,
+          typePayload.parking || false,
+          typePayload.breakfast || false,
+          typePayload.lunch_dinner || false,
+          typePayload.room_service || false,
+          typePayload.cctv || false,
+          typePayload.security_24 || false,
+          typePayload.safe_env || false,
+          typePayload.near_market || false,
+          typePayload.near_bus_stand || false,
+          typePayload.near_tourist || false,
+          typePayload.laundry || false,
+          typePayload.swimming_pool || false,
+          typePayload.gym || false,
+          typePayload.conference_hall || false,
+          typePayload.available_from_date || null,
+        ]
+      );
     } else if (propertyType === 'Marquee' || propertyType === 'Guest House' || propertyType === 'Farm House') {
       if (propertyType === 'Marquee') {
         await client.query(
@@ -345,6 +374,7 @@ const list = async (req, res) => {
 
 const TYPE_TABLES = {
   Hostel: 'hostel_details',
+  Hotel: 'hotel_details',
   House: 'house_details',
   Flat: 'flat_details',
   Shop: 'shop_details',
@@ -628,6 +658,34 @@ const updateListing = async (req, res) => {
           typePayload.internet_ready || false,
           typePayload.security || false,
           typePayload.suitable_for || null,
+          typePayload.available_from_date || null,
+          listingId,
+        ]
+      );
+    } else if (tableName === 'hotel_details') {
+      await client.query(
+        `UPDATE hotel_details SET rooms = $1, ac_type = $2, clean_beds = $3, attached_bathroom = $4, family_rooms = $5, wifi = $6, parking = $7, breakfast = $8, lunch_dinner = $9, room_service = $10, cctv = $11, security_24 = $12, safe_env = $13, near_market = $14, near_bus_stand = $15, near_tourist = $16, laundry = $17, swimming_pool = $18, gym = $19, conference_hall = $20, available_from_date = $21 WHERE listing_id = $22`,
+        [
+          typePayload.rooms ?? 1,
+          typePayload.ac_type || null,
+          typePayload.clean_beds || false,
+          typePayload.attached_bathroom || false,
+          typePayload.family_rooms || false,
+          typePayload.wifi || false,
+          typePayload.parking || false,
+          typePayload.breakfast || false,
+          typePayload.lunch_dinner || false,
+          typePayload.room_service || false,
+          typePayload.cctv || false,
+          typePayload.security_24 || false,
+          typePayload.safe_env || false,
+          typePayload.near_market || false,
+          typePayload.near_bus_stand || false,
+          typePayload.near_tourist || false,
+          typePayload.laundry || false,
+          typePayload.swimming_pool || false,
+          typePayload.gym || false,
+          typePayload.conference_hall || false,
           typePayload.available_from_date || null,
           listingId,
         ]

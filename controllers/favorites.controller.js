@@ -3,6 +3,7 @@ const pool = require('../config/db');
 // Keep in sync with TYPE_TABLES in listing.controller.js
 const TYPE_TABLES = {
   Hostel: 'hostel_details',
+  Hotel: 'hotel_details',
   House: 'house_details',
   Flat: 'flat_details',
   Shop: 'shop_details',
